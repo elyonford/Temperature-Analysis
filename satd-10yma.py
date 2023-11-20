@@ -164,7 +164,22 @@ axs[0].plot(kc_temps["Tavg"].rolling(window = 365*10).mean(), color="red")
 axs[1].plot(stl_temps["Tavg"].rolling(window = 365*10).mean(), color="blue")
 axs[2].plot(bhm_temps["Tavg"].rolling(window = 365*10).mean(), color="green")
 plt.show()
- 
+
+# work on this piece -----
+# to set the plot size 
+plt.figure(figsize=(16, 8), dpi=150)
+# in plot method we set the label and color of the curve. 
+kc_temps["Tavg"].rolling(window = 365*10).mean().plot(label='KC', color='orange') 
+stl_temps["Tavg"].rolling(window = 365*10).mean().plot(label='STL') 
+bhm_temps["Tavg"].rolling(window = 365*10).mean().plot(label='BHM') 
+# adding title to the plot 
+plt.title('Single Axis Temp Plot') 
+# adding Label to the x-axis 
+plt.xlabel('Years') 
+# adding legend to the curve 
+plt.legend()
+# work on the thing above this line ----
+
 # kc_temps["Tavg"].rolling(window = 365*10).var().plot(figsize=(8,4), color="tab:red", title="Rolling variance over a 10 year window")
 # plt.show()
  
