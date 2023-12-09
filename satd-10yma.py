@@ -90,58 +90,58 @@ bhm_temps_season["winter"] = np.where(bhm_temps_season["summer"] != 1,1,0)
 # plt.show()
  
 # resample by month start, calculate mins and maxes for tmax, tmin and Tavg
-kc_date_list = kc_temps.index.tolist()
-stl_date_list = stl_temps.index.tolist()
-bhm_date_list = bhm_temps.index.tolist()
-mth_kc_temps = pd.DataFrame(data=kc_date_list, index=kc_date_list).resample("MS")[0].agg([min,max])
-mth_kc_temps["month"] = mth_kc_temps.index.month
-mth_stl_temps = pd.DataFrame(data=stl_date_list, index=stl_date_list).resample("MS")[0].agg([min,max])
-mth_stl_temps["month"] = mth_stl_temps.index.month
-mth_bhm_temps = pd.DataFrame(data=bhm_date_list, index=bhm_date_list).resample("MS")[0].agg([min,max])
-mth_bhm_temps["month"] = mth_bhm_temps.index.month
-def min_max_kc_temps(row):
-    stats = kc_temps[(kc_temps.index >= row["min"]) & (kc_temps.index <= row["max"])].agg([min, max])
-    row["tmax_max"] = stats.loc["max", "tmax"]
-    row["tmax_min"] = stats.loc["min", "tmax"]
-    row["tmin_max"] = stats.loc["max", "tmin"]
-    row["tmin_min"] = stats.loc["min", "tmin"]
-    row["Tavg_max"] = stats.loc["max", "Tavg"]
-    row["Tavg_min"] = stats.loc["min", "Tavg"]
-    return row
-def min_max_stl_temps(row):
-    stats = stl_temps[(stl_temps.index >= row["min"]) & (stl_temps.index <= row["max"])].agg([min, max])
-    row["tmax_max"] = stats.loc["max", "tmax"]
-    row["tmax_min"] = stats.loc["min", "tmax"]
-    row["tmin_max"] = stats.loc["max", "tmin"]
-    row["tmin_min"] = stats.loc["min", "tmin"]
-    row["Tavg_max"] = stats.loc["max", "Tavg"]
-    row["Tavg_min"] = stats.loc["min", "Tavg"]
-    return row
-def min_max_bhm_temps(row):
-    stats = bhm_temps[(bhm_temps.index >= row["min"]) & (bhm_temps.index <= row["max"])].agg([min, max])
-    row["tmax_max"] = stats.loc["max", "tmax"]
-    row["tmax_min"] = stats.loc["min", "tmax"]
-    row["tmin_max"] = stats.loc["max", "tmin"]
-    row["tmin_min"] = stats.loc["min", "tmin"]
-    row["Tavg_max"] = stats.loc["max", "Tavg"]
-    row["Tavg_min"] = stats.loc["min", "Tavg"]
-    return row
+# kc_date_list = kc_temps.index.tolist()
+# stl_date_list = stl_temps.index.tolist()
+# bhm_date_list = bhm_temps.index.tolist()
+# mth_kc_temps = pd.DataFrame(data=kc_date_list, index=kc_date_list).resample("MS")[0].agg([min,max])
+# mth_kc_temps["month"] = mth_kc_temps.index.month
+# mth_stl_temps = pd.DataFrame(data=stl_date_list, index=stl_date_list).resample("MS")[0].agg([min,max])
+# mth_stl_temps["month"] = mth_stl_temps.index.month
+# mth_bhm_temps = pd.DataFrame(data=bhm_date_list, index=bhm_date_list).resample("MS")[0].agg([min,max])
+# mth_bhm_temps["month"] = mth_bhm_temps.index.month
+# def min_max_kc_temps(row):
+#     stats = kc_temps[(kc_temps.index >= row["min"]) & (kc_temps.index <= row["max"])].agg([min, max])
+#     row["tmax_max"] = stats.loc["max", "tmax"]
+#     row["tmax_min"] = stats.loc["min", "tmax"]
+#     row["tmin_max"] = stats.loc["max", "tmin"]
+#     row["tmin_min"] = stats.loc["min", "tmin"]
+#     row["Tavg_max"] = stats.loc["max", "Tavg"]
+#     row["Tavg_min"] = stats.loc["min", "Tavg"]
+#     return row
+# def min_max_stl_temps(row):
+#     stats = stl_temps[(stl_temps.index >= row["min"]) & (stl_temps.index <= row["max"])].agg([min, max])
+#     row["tmax_max"] = stats.loc["max", "tmax"]
+#     row["tmax_min"] = stats.loc["min", "tmax"]
+#     row["tmin_max"] = stats.loc["max", "tmin"]
+#     row["tmin_min"] = stats.loc["min", "tmin"]
+#     row["Tavg_max"] = stats.loc["max", "Tavg"]
+#     row["Tavg_min"] = stats.loc["min", "Tavg"]
+#     return row
+# def min_max_bhm_temps(row):
+#     stats = bhm_temps[(bhm_temps.index >= row["min"]) & (bhm_temps.index <= row["max"])].agg([min, max])
+#     row["tmax_max"] = stats.loc["max", "tmax"]
+#     row["tmax_min"] = stats.loc["min", "tmax"]
+#     row["tmin_max"] = stats.loc["max", "tmin"]
+#     row["tmin_min"] = stats.loc["min", "tmin"]
+#     row["Tavg_max"] = stats.loc["max", "Tavg"]
+#     row["Tavg_min"] = stats.loc["min", "Tavg"]
+#     return row
 
-mth_kc_temps = mth_kc_temps.apply(min_max_kc_temps,axis=1)
-mth_stl_temps = mth_stl_temps.apply(min_max_stl_temps,axis=1)
-mth_bhm_temps = mth_bhm_temps.apply(min_max_stl_temps,axis=1)
+# mth_kc_temps = mth_kc_temps.apply(min_max_kc_temps,axis=1)
+# mth_stl_temps = mth_stl_temps.apply(min_max_stl_temps,axis=1)
+# mth_bhm_temps = mth_bhm_temps.apply(min_max_stl_temps,axis=1)
 # print(mth_kc_temps)
  
 # group min and max temps by month, relabel from numbers to abbreviations
-grouped_mths_kc = mth_kc_temps.groupby(mth_kc_temps.month)[["tmax_max", "tmax_min", "tmin_max", "tmin_min", "Tavg_max", "Tavg_min"]].agg([min, max])
-grouped_mths_kc['months'] = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
-grouped_mths_kc = grouped_mths_kc.set_index('months')
-grouped_mths_stl = mth_stl_temps.groupby(mth_stl_temps.month)[["tmax_max", "tmax_min", "tmin_max", "tmin_min", "Tavg_max", "Tavg_min"]].agg([min, max])
-grouped_mths_stl['months'] = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
-grouped_mths_stl = grouped_mths_stl.set_index('months')
-grouped_mths_bhm = mth_bhm_temps.groupby(mth_bhm_temps.month)[["tmax_max", "tmax_min", "tmin_max", "tmin_min", "Tavg_max", "Tavg_min"]].agg([min, max])
-grouped_mths_bhm['months'] = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
-grouped_mths_bhm = grouped_mths_bhm.set_index('months')
+# grouped_mths_kc = mth_kc_temps.groupby(mth_kc_temps.month)[["tmax_max", "tmax_min", "tmin_max", "tmin_min", "Tavg_max", "Tavg_min"]].agg([min, max])
+# grouped_mths_kc['months'] = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+# grouped_mths_kc = grouped_mths_kc.set_index('months')
+# grouped_mths_stl = mth_stl_temps.groupby(mth_stl_temps.month)[["tmax_max", "tmax_min", "tmin_max", "tmin_min", "Tavg_max", "Tavg_min"]].agg([min, max])
+# grouped_mths_stl['months'] = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+# grouped_mths_stl = grouped_mths_stl.set_index('months')
+# grouped_mths_bhm = mth_bhm_temps.groupby(mth_bhm_temps.month)[["tmax_max", "tmax_min", "tmin_max", "tmin_min", "Tavg_max", "Tavg_min"]].agg([min, max])
+# grouped_mths_bhm['months'] = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+# grouped_mths_bhm = grouped_mths_bhm.set_index('months')
 # print(grouped_mths_kc[[("tmax_max", "max"),("tmin_min", "min"),("tmax_min", "min"),("tmin_max", "max")]])
  
 # Look at the max and min of the Tavg max and min
@@ -167,17 +167,17 @@ plt.show()
 
 # work on this piece -----
 # to set the plot size 
-plt.figure(figsize=(16, 8), dpi=150)
-# in plot method we set the label and color of the curve. 
-kc_temps["Tavg"].rolling(window = 365*10).mean().plot(label='KC', color='orange') 
-stl_temps["Tavg"].rolling(window = 365*10).mean().plot(label='STL') 
-bhm_temps["Tavg"].rolling(window = 365*10).mean().plot(label='BHM') 
-# adding title to the plot 
-plt.title('Single Axis Temp Plot') 
-# adding Label to the x-axis 
-plt.xlabel('Years') 
-# adding legend to the curve 
-plt.legend()
+# plt.figure(figsize=(16, 8), dpi=150)
+# # in plot method we set the label and color of the curve. 
+# kc_temps["Tavg"].rolling(window = 365*10).mean().plot(label='KC', color='orange') 
+# stl_temps["Tavg"].rolling(window = 365*10).mean().plot(label='STL') 
+# bhm_temps["Tavg"].rolling(window = 365*10).mean().plot(label='BHM') 
+# # adding title to the plot 
+# plt.title('Single Axis Temp Plot') 
+# # adding Label to the x-axis 
+# plt.xlabel('Years') 
+# # adding legend to the curve 
+# plt.legend()
 # work on the thing above this line ----
 
 # kc_temps["Tavg"].rolling(window = 365*10).var().plot(figsize=(8,4), color="tab:red", title="Rolling variance over a 10 year window")
