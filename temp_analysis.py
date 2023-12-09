@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 kansas_city = pd.read_csv("data/USW00003947.csv")
 kansas_city["Date"] = pd.to_datetime(kansas_city["Date"]) #Thanks skbrimmer!
-print(kansas_city.describe())
+# print(kansas_city.describe())
 
 kc_lows = kansas_city[["Date","tmin"]]
 # kc_lows_since1970 = kc_lows[kc_lows["Date"] > "1969-12-31"]
